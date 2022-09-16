@@ -3,11 +3,13 @@ function love.draw()
 -- прячутся внутри таблицы love.
   love.graphics.print("Main Menu", 19, 19)
   love.window.setTitle("War For Territory")
+  love.graphics.draw(image, 0, 0)
 end
   
 function love.load()
 -- Код в функции love.load будет вызван один раз, 
 -- как только проект будет запущен.
+image = love.graphics.newImage('image.png')
 end
 
 function love.update(dt)
@@ -24,10 +26,10 @@ function love.keypressed(key, scancode, isrepeat)
 	end
 end
 
-function train(num)
-  num = 2
-  if num > 0 then
-    print(num)
+function test(var)
+  var = 2
+  if var > 0 then
+    print(var)
     end
 
 end
@@ -46,7 +48,8 @@ Tank.type = 'T-80BVM'
 
 function Tank:new(field, x, y)
   
--- переопределил self на новый объект, self более нам не товарищ. 
+-- переопределил self на новый объект, self более нам не товарищ.
+-- новый объект у нас теперь метатаблица. теперь к нему применяются метаметоды
   self = setmetatable({}, self)
   
   
@@ -84,3 +87,26 @@ function Tank:new(field, x, y)
   return self
   
 end  
+
+
+--тестирование:
+
+print('Tank.key', Tank.key)
+
+
+function Tank:update(dt)
+	-- Декрементов нема, и инкрементов тоже, но это не очень страшно.
+	-- dt - дельта времени, промежуток между предыдущим и текущим кадром.
+	self.shoot_timer = self.shoot_timer - dt
+	
+	
+	-- Управление:
+	
+	-- "Если зажата кнопка и таймер истёк" - спавнит новую пулю.
+	if love.keyboard.isDown('x') and self.shoot_timer < 0 then
+		self.field:spawn(Bullet:new(self.field, self.x, self.y, self.angle))
+
+		-- сбрасывает таймер, чтобы танк не стрелял непрерывно 
+		-- хоть это и забавно.
+		self.shoot_timer = self.shoot_delay
+	end
