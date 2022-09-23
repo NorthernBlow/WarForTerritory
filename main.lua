@@ -1,10 +1,10 @@
 function love.load()
-  
   --таблица 
   pz3mtank = {
     love.graphics.newImage("/pz3m.png"),
     love.graphics.newImage("/pz3mEXHAUST.png")
-    }
+  }
+  
   love.window.setTitle("War For Territory")
   
   rotate = {
@@ -12,12 +12,14 @@ function love.load()
     math.pi / 2,
     math.pi,
     -math.pi / 2
-    }  
+  }  
+  
+  
   --координаты
   x, y = 100, 100
   
   --скорость
-  speed = 100
+  speed = 40
   speed2 = 10
   right = false
   frame = #pz3mtank
@@ -28,9 +30,12 @@ function love.load()
   maxBlink = 1
 end
 
+
+
+
 function love.draw()
   
-love.graphics.clear(0, 20, 130)
+love.graphics.clear(0, 214, 130)
 
 --прописываем угол поворта
 if right then
@@ -41,7 +46,8 @@ if right then
 end
 
 
-function love.update(dt)
+
+function love.update(dt) -- dt(Delta time) зависит от колличества FPS
   x = x + speed * dt
   y = y + speed2 * dt
   right = love.mouse.isDown(2)
@@ -62,7 +68,23 @@ function love.update(dt)
       rot = 1
       end
   end
+  
+  
+  -- ДЛЯ ТЕСТА ФРЕЙМРЕЙТА -- 
+  
+  local var = 10
+  local rate = 10
+  
+  if love.keyboard.isDown("down") then   -- уменьшение значения
+      var = var - (dt * rate)
+   end
+   if love.keyboard.isDown("up") then   -- увеличение значения
+      var = var + (dt * rate)
+   end
 end
+
+-- end -- ДЛЯ ТЕСТА ФРЕЙМРЕЙТА -- end -- 
+
 
 function love.keypressed(key, scancode, isrepeat)
   if key == "f11" then
