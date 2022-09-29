@@ -5,6 +5,10 @@ function love.load()
     love.graphics.newImage("/pz3mEXHAUST.png")
   }
   
+  font = love.graphics.newFont(32)
+  unitName = love.graphics.newText(font, "Panzer III")
+  --gameoverText = love.graphics.NewText(font, "Slava Ukraini")
+  
   love.window.setTitle("War For Territory")
   
   rotate = {
@@ -14,7 +18,9 @@ function love.load()
     -math.pi / 2
   }  
   
-  
+  -- масштабирование мб пригодится
+  scale_x, scale_y = 1, 1
+  origin_x, origin_y = 66, 66
   --координаты
   x, y = 100, 100
   
@@ -34,14 +40,17 @@ end
 
 
 function love.draw()
-  
-love.graphics.clear(0, 214, 130)
+--производится очистка, весь экран заполняется этим цветом.
+love.graphics.clear(50, 50, 50)
+
+--задел для зимних карт: можно создавать альфа канал для спрайта ._.
+love.graphics.setColor(0, 255, 255)
 
 --прописываем угол поворта
 if right then
-  love.graphics.draw(pz3mtank[frame], x, y, rotate[rot] + math.pi / 2, nil, nil, 66, 66) -- 66 х 66 пиксели, откуда произведется поворот
+  love.graphics.draw(pz3mtank[frame], x, y, rotate[rot] + math.pi / 2, scale_x, scale_y, origin_x, origin_y) -- 66 х 66 пиксели, откуда произведется поворот(origin_x, origin_y)
   else
-  love.graphics.draw(pz3mtank[frame], x, y, 0, nil, nil, 66, 66 )
+  love.graphics.draw(pz3mtank[frame], x, y, 0, scale_x, scale_y, origin_x, origin_y )
   end
 end
 
