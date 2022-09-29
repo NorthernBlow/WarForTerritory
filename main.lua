@@ -68,23 +68,7 @@ function love.update(dt) -- dt(Delta time) зависит от колличес�
       rot = 1
       end
   end
-  
-  
-  -- ДЛЯ ТЕСТА ФРЕЙМРЕЙТА -- 
-  
---  local var = 10  -- сюда подставить то, что буду тестировать
---  local rate = 60 
-  
---  if love.keyboard.isDown("down") then   -- уменьшение значения
---      var = var - (dt * rate)
---   end
---   if love.keyboard.isDown("up") then   -- увеличение значения
---     var = var + (dt * rate)
---   end
---end
-
--- end -- ДЛЯ ТЕСТА ФРЕЙМРЕЙТА -- end -- 
-
+  end
 
 function love.keypressed(key, scancode, isrepeat)
   if key == "f11" then
