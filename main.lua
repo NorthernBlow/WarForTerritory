@@ -7,7 +7,7 @@ function love.load()
   
   font = love.graphics.newFont(32)
   unitName = love.graphics.newText(font, "Panzer III")
-  --gameoverText = love.graphics.NewText(font, "Slava Ukraini")
+  --gameoverText = love.graphics.NewText(font, "")
   
   love.window.setTitle("War For Territory")
   
